@@ -82,9 +82,12 @@ function makeResponsive() {
     if (chosenXAxis === "poverty") {
         label = "Poverty:";
     }
-    else {
-        label = "Obesity %:";
+    else if (chosenXAxis === "obesity") {
+        label = "Obesity:";
     }
+    else if (chosenXAxis === "smokes") {
+        label = "Smokers:";
+    };
 
     var toolTip = d3.tip()
         .attr("class", "tooltip")
@@ -117,6 +120,7 @@ function makeResponsive() {
             data.poverty = +data.poverty;
             data.healthcare = +data.healthcare;
             data.obesity = +data.obesity;
+            data.smokes = +data.smokes;
         });
 
         // xLinearScale function above csv import
@@ -179,6 +183,13 @@ function makeResponsive() {
             .classed("inactive", true)
             .text("Obesity Rate (%)");
 
+        var smokesLabel = labelsGroup.append("text")
+            .attr("x", 0)
+            .attr("y", 60)
+            .attr("value", "smokes") // value to grab for event listener
+            .classed("inactive", true)
+            .text("Smokers (%)");
+
         // append y axis
         chartGroup.append("text")
             .attr("transform", "rotate(-90)")
@@ -224,7 +235,23 @@ function makeResponsive() {
                 povertyLabel
                     .classed("active", false)
                     .classed("inactive", true);
+                smokesLabel
+                    .classed("active", false)
+                    .classed("inactive", true);
                 }
+
+                else if (chosenXAxis === "smokes") {
+                    obesityLabel
+                        .classed("active", false)
+                        .classed("inactive", true);
+                    povertyLabel
+                        .classed("active", false)
+                        .classed("inactive", true);
+                    smokesLabel
+                        .classed("active", true)
+                        .classed("inactive", false);
+                    }
+    
                 else {
                 obesityLabel
                     .classed("active", false)
@@ -232,6 +259,9 @@ function makeResponsive() {
                 povertyLabel
                     .classed("active", true)
                     .classed("inactive", false);
+                smokesLabel
+                    .classed("active", false)
+                    .classed("inactive", true);
                 }
             }
             });
