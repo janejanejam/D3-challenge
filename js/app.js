@@ -13,8 +13,8 @@ function makeResponsive() {
   
     // SVG wrapper dimensions are determined by the current width and
     // height of the browser window.
-    var svgWidth = window.innerWidth;
-    var svgHeight = window.innerHeight;
+    var svgWidth = window.innerWidth - 200;
+    var svgHeight = 750;
   
     var margin = {
       top: 50,
@@ -74,6 +74,15 @@ function makeResponsive() {
     return circlesGroup;
     }
 
+    function renderAbbr(circlesText, newXScale, chosenXAxis) {
+
+        circlesText.transition()
+            .duration(1000)
+            .attr("dx", d => newXScale(d[chosenXAxis]));
+    
+        return circlesText;
+        }
+
     // function used for updating circles group with new tooltip
     function updateToolTip(chosenXAxis, circlesGroup) {
 
@@ -93,7 +102,7 @@ function makeResponsive() {
         .attr("class", "tooltip")
         .offset([10, -50])
         .html(function(d) {
-        return (`${d.abbr}<br>${label} ${d[chosenXAxis]}%`);
+        return (`${d.abbr} | ${label} ${d[chosenXAxis]}%`);
         });
 
     circlesGroup.call(toolTip);
@@ -152,17 +161,18 @@ function makeResponsive() {
             .append("circle")
             .attr("cx", d => xLinearScale(d[chosenXAxis]))
             .attr("cy", d => yLinearScale(d.healthcare))
-            .attr("r", 15)
+            .attr("r", 20)
             .attr("fill", "rgb(32,129,129)")
-            .attr("opacity", ".75");
+            .attr("opacity", ".65");
 
-        var circlesText = chartGroup.selectAll("text")
+        var circlesText = chartGroup.selectAll(".svgtext")
             .data(healthRiskData)
             .enter()
             .append("text")
             .attr("dx", d => xLinearScale(d[chosenXAxis]))
-            .attr("dy", d => yLinearScale(d.healthcare))
+            .attr("dy", d => yLinearScale(d.healthcare) + 5)
             .attr("class", "svgtext")
+            .attr("text-anchor", "middle")
             .text(d => `${d.abbr}`);
 
         // Create group for two x-axis labels
@@ -223,6 +233,7 @@ function makeResponsive() {
 
                 // updates circles with new x values
                 circlesGroup = renderCircles(circlesGroup, xLinearScale, chosenXAxis);
+                circlesText = renderAbbr(circlesText, xLinearScale, chosenXAxis);
 
                 // updates tooltips with new info
                 circlesGroup = updateToolTip(chosenXAxis, circlesGroup);

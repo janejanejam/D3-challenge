@@ -2,7 +2,7 @@
   /* display: none; */
   position: absolute;
   width: 80px;
-  height: 45px;
+  height: 35px;
   padding: 2px;
   font: 12px sans-serif;
   text-align: center;
@@ -14,12 +14,19 @@
 .svgtext {
   font: 12px sans-serif;
   font-weight: bold;
-  color: white;
+  fill: white;
 }
 
 .iframeContainer {
   padding: 20px;
   border: 1px solid #e3e3e3;
+}
+
+.header {
+  padding: 20px;
+  text-align: left;
+  background: rgb(146, 182, 182);
+  color: white;
 }
 
 /* Sticky Footer rules (https://getbootstrap.com/examples/sticky-footer/) */
