@@ -1,7 +1,7 @@
 # Project: Health Risks vs. Lack of Healthcare by State
 
 ## Objective:
-Analyze data from U.S. Census Bureau and the Behavorial Risk Factor Surveillance System to study correlations between demographics and health risks by state. 
+Analyze data from U.S. Census Bureau and the Behavioral Risk Factor Surveillance System to study correlations between demographics and health risks by state. 
 
 ## Tools:
 * Javascript
